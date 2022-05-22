@@ -1,11 +1,11 @@
-// Implementation for Node.h is written here
+// Implementation for BTNode.h is written here
 #include "BTNode.h"
 
 // Author: Johanne Montano
 // Course: SENG1120
 // Student Number: c3336019
 
-// This class will be used as data holders for a linked list
+// This class will be used as data holders for our BSTree
 
 // Constructors
 template <typename T>
@@ -36,6 +36,7 @@ void BTNode<T>::set_parent(BTNode *parent_)
 {
     parent = parent_;
 }
+
 template <typename T>
 void BTNode<T>::set_left(BTNode *left_)
 {

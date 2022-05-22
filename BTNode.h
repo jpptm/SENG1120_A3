@@ -2,18 +2,17 @@
 // Created by User on 16/05/2022.
 //
 
+// Initialise macroguard
 #ifndef HASHPLUSTREE_BTNODE_H
 #define HASHPLUSTREE_BTNODE_H
+
 // Author: Johanne Montano
 // Course: SENG1120
 // Student Number: c3336019
 
-// Macroguard
-
-
 #include <cstdlib>
 
-// This class will serve as data containers for our linked list
+// This class will serve as data containers for our BSTree
 template<class T>
 class BTNode {
 public:
@@ -43,7 +42,7 @@ private:
     T data;
 };
 
-// Include to let compiler know implementation is in Node.hpp
+// Include to let compiler know implementation is in BTNode.hpp
 #include "BTNode.hpp"
 
 #endif //HASHPLUSTREE_BTNODE_H
