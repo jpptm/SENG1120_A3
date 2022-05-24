@@ -24,10 +24,10 @@ public:
 
     // All relevant generic tree methods follow below
     // Add(city)
-    void add(const T item);
+    void add(const T &item);
 
     // Remove(city)
-    T remove(const T target);
+    void remove(const T &target);
 
     // Get size of tree
     int count() const;
@@ -53,11 +53,11 @@ private:
     // Helper for destructor
     void destroyRecursively(BTNode<T> *node);
     // Helper for add
-    void helpAdd(BTNode<T>* n, T item);
+    BTNode<T>* helpAdd(BTNode<T>* n, const T &item);
     // Helpers for remove - need to find minimum node within tree if we are to remove a node with 2 children
-    T helpRemove(BTNode<T>*n, T target);
+    BTNode<T>* helpRemove(BTNode<T>*n, const T &target);
     BTNode<T>* findMin(BTNode<T> *n) const;
-    BTNode<T>* find(BTNode<T>* n, T target) const;
+    BTNode<T>* find(BTNode<T>* n, T& target) const;
 
 };
 

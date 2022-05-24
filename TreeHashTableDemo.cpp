@@ -10,7 +10,7 @@
 #include <time.h>
 #include <sstream> 
 #include "BSTree.h"
-#include "HTable.h"
+//#include "HTable.h"
 #include "Cities.h"
 
 using namespace std;
@@ -21,7 +21,7 @@ int main()
 
 	// you are using class templates
 	BSTree<Cities> treeValues;
-	HTable<Cities> tableValues;
+	//HTable<Cities> tableValues;
     	
     Cities city;
 
@@ -44,7 +44,7 @@ int main()
 			tempSS2 >> tempDouble;
 			city.set_population(tempDouble);
 			treeValues.add(city); // adds element to the tree
-			tableValues.add(city); // adds element to the table
+			//tableValues.add(city); // adds element to the table
 			
 		}
 	}
@@ -76,11 +76,11 @@ int main()
 	} 
 	cout << endl << endl;
 	
-	//cout << "Final tree  : " << treeValues << endl << endl; // prints the contents of the tree.
+	cout << "Final tree  : " << treeValues << endl << endl; // prints the contents of the tree.
 	cout << "Time elapsed: " << (clock() - t)/1000.0 << " seconds" << endl; // prints elapsed time.
 	cout << "Time per ins/del operation: " << 1000.0*(double)(clock() - t)/(double)(10000*31) << " milliseconds." << endl;
 	cout << "There are " << treeValues.calculateTotalPop() << " people living in those cities and " << treeValues.calculatePopGreaterThan(10000000) << " people living in cities with more than 10 million inhabitants." << endl;
-
+    /*
 	cout << "==================" << endl << "HASH TABLE" << endl << "==================" << endl << endl;
 	t = clock(); // gets current time
     cout << "Initial hash table: " << tableValues << endl; // prints the contents of the hash table.
@@ -107,7 +107,7 @@ int main()
     cout << "Time elapsed: " << (clock() - t)/1000.0 << " seconds" << endl; // prints elapsed time.
 	cout << "Time per ins/del operation: " << 1000.0*(double)(clock() - t)/(double)(10000*31) << " milliseconds." << endl << endl;
 	cout << "There are " << tableValues.calculateTotalPop() << " people living in those cities and " << tableValues.calculatePopGreaterThan(10000000) << " people living in cities with more than 10 million inhabitants." << endl;
-	cout << "The program has finished." << endl;
+	cout << "The program has finished." << endl;*/
 	
 	return 0;
 }
