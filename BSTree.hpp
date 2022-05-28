@@ -3,6 +3,7 @@
 // Student Number: c3336019
 
 #include "BSTree.h"
+#include <sstream>
 
 // Constructor
 template <typename T>
@@ -17,6 +18,25 @@ BSTree<T>::~BSTree()
 {
     // Destroy every single node within tree using our private helper method
     destroyRecursively(root);
+}
+
+
+// Destroy nodes recursively - this is a private helper method that takes a node pointer and recursively traverses
+// the tree and destroy Nodes along the way
+template <typename T>
+void BSTree<T>::destroyRecursively(BTNode<T> *n)
+{
+    if(n == NULL)
+    {
+        return;
+    }
+
+    destroyRecursively(n->get_left());
+    destroyRecursively(n->get_right());
+
+    delete n;
+    size--;
+
 }
 
 
@@ -39,34 +59,168 @@ void BSTree<T>::add(const T &item)
 }
 
 
+// Help add new node to tree
+template <typename T>
+BTNode<T>* BSTree<T>::helpAdd(BTNode<T> *n, const T &item)
+{
+    if (item < n->get_data())
+    {
+        // Check left node and if not empty
+        if(n->get_left())
+        {
+            // Set left node
+            n->set_left(helpAdd(n->get_left(), item));
+        }
+            // Else add a new node
+        else
+        {
+            // Remember to set n as parent of new node
+            n->set_left(new BTNode<T>(n, NULL, NULL, item));
+            size++;
+        }
+    }
+
+    // Do the same thing for the other case
+    if (item > n->get_data())
+    {
+        if(n->get_right())
+        {
+            n->set_right(helpAdd(n->get_right(), item));
+        }
+        else
+        {
+            n->set_right(new BTNode<T>(n, NULL, NULL, item));
+            size++;
+        }
+    }
+
+    return n;
+}
+
+
 // Search for target node and remove it from tree - doesn't really make sense if we try to return the item we are removing
 // as we already have to know what we want to delete in the first place
 template <typename T>
 void BSTree<T>::remove(const T &target)
 {
     // Use helper method to do the recursion to delete the target node -- IN CAREFUL DEVELOPMENT
-    BTNode<T> *start = root;
-    helpRemove(start, target);
+    root = helpRemove(root, target);
 }
 
 
-// Find total population of tree
+// Find the node with the least value, so we can use that to balance our tree if our target has 2 children
+template <typename T>
+BTNode<T>* BSTree<T>::helpRemove(BTNode<T>*n, const T &target)
+{
+    // Base
+    if (n == NULL)
+    {
+        return n;
+    }
+
+    if (target < n->get_data())
+    {
+        n->set_left(helpRemove(n->get_left(), target));
+    }
+
+    else if (target > n->get_data())
+    {
+        n->set_right((helpRemove(n->get_right(), target)));
+    }
+
+    else
+    {
+        // If it's a leaf node
+        if (n->get_left() == NULL && n->get_right() == NULL)
+        {
+            return NULL;
+        }
+
+            // If has a right child
+        else if (n->get_left() == NULL)
+        {
+            BTNode<T>* temp = n->get_right();
+            delete n;
+            size--;
+            return temp;
+        }
+
+            // If it has a left child
+        else if (n->get_right() == NULL)
+        {
+            BTNode<T>* temp = n->get_left();
+            delete n;
+            size--;
+            return temp;
+        }
+
+        // Getting through here means we're dealing with a node with 2 children
+        BTNode<T>* temp = findMin(n->get_right());
+        n->set_data(temp->get_data());
+        n->set_right(helpRemove(n->get_right(), temp->get_data()));
+    }
+
+    return n;
+}
+
+
+// Find total population of tree - could be int but I just like doubles better
 template <typename T>
 int BSTree<T>::calculateTotalPop() const
 {
     // Traverse the whole tree; while traversing get the population data of each object then move recursively
-    BTNode<T> *start = root;
+    return traverseGetPop(root);
+}
 
 
-    return 0;
+// Helper function for getting total population of Cities within BT - Will only work with instances of the class City
+template<typename T>
+int BSTree<T>::traverseGetPop(BTNode<T> *n) const
+{
+    // Base
+    if (n == NULL)
+    {
+        return 0;
+    }
+    // Traverse whole tree and get pop for every node within
+    else
+    {
+        return n->get_data().get_population() + traverseGetPop(n->get_left()) + traverseGetPop(n->get_right());
+    }
 }
 
 
 // Find total population of cities if that city's population is greater than the argument
 template <typename T>
-int BSTree<T>::calculatePopGreaterThan(int target) const
+int BSTree<T>::calculatePopGreaterThan(const int target) const
 {
-    return 0;
+    return traverseGetIfBigger(root, target);
+}
+
+
+// Get population data if pop is bigger than target
+template <typename T>
+int BSTree<T>::traverseGetIfBigger(BTNode<T> *n, const int target) const
+{
+    // If node is not null or population of the node is > target add that while travelling the whole tree
+    if (n == NULL)
+    {
+        return 0;
+    }
+
+    else
+    {
+        int ans = 0;
+
+        ans += traverseGetIfBigger(n->get_left(), target);
+        if (n->get_data().get_population() > target)
+        {
+            ans += n->get_data().get_population();
+        }
+        ans += traverseGetIfBigger(n->get_right(), target);
+
+        return ans;
+    }
 }
 
 
@@ -78,156 +232,13 @@ int BSTree<T>::count() const
 }
 
 
-// Overload << to print tree of cities
-std::ostream& operator <<(std::ostream& out, const BSTree<Cities> &c)
-{
-    return out;
-}
-
 // --- --- --- --- Private helper methods follow --- --- --- ---
-
-// Destroy nodes recursively - this is a private helper method that takes a node pointer and recursively traverses
-// the tree and destroy Nodes along the way
-template <typename T>
-void BSTree<T>::destroyRecursively(BTNode<T> *n)
-{
-    if(n == NULL)
-    {
-        return;
-    }
-
-    destroyRecursively(n->get_left());
-    destroyRecursively(n->get_right());
-
-    delete n;
-    size--;
-
-}
-
-
-// Help add new node to tree
-template <typename T>
-BTNode<T>* BSTree<T>::helpAdd(BTNode<T> *n, const T &item)
-{
-    // Item goes to right if it is bigger than current else it goes left
-    if(item > n->get_data())
-    {
-        if(n->get_right() == NULL)
-        {
-            BTNode<T> *newNode = new BTNode<T>(n, NULL, NULL, item);
-            n->set_right(newNode);
-            size++;
-        }
-        else
-        {
-            n->set_right(helpAdd(n->get_right(), item));
-        }
-    }
-
-    // Left side
-    if(item < n->get_data())
-    {
-        if(n->get_left() == NULL)
-        {
-            BTNode<T> *newNode = new BTNode<T>(n, NULL, NULL, item);
-            n->set_left(newNode);
-            size++;
-        }
-        else
-        {
-            n->set_left(helpAdd(n->get_left(), item));
-        }
-    }
-    return n;
-}
-
-
-// Find the node with the least value, so we can use that to balance our tree if our target has 2 children
-template <typename T>
-BTNode<T>* BSTree<T>::helpRemove(BTNode<T>*n, const T &target)
-{
-    // Put this here so it doesnt die on us prematurely
-    BTNode<T>* susp;
-    // Base
-    if(n == NULL)
-    {
-        return n;
-    }
-
-    // If target is bigger than our current node go right as our target will be in one of the subtrees to the right of our current node
-    if(target > n->get_data())
-    {
-        n->set_right(helpRemove(n->get_right(), target));
-        if(n->get_right())
-        {
-            n->get_right()->set_parent(n);
-        }
-    }
-
-    // If target is smaller than current then go left
-    else if(target < n->get_data())
-    {
-        n->set_left(helpRemove(n->get_left(), target));
-        if(n->get_left())
-        {
-            n->get_left()->set_parent(n);
-        }
-    }
-
-    // Reaching this block means that we have reached our target node - now we just gotta check the children of the node
-    else
-    {
-        // Account for 0, 1 or 2 children for node
-
-        // For 2 children
-        if(n->get_left() != NULL && n->get_right() != NULL)
-        {
-            // Find min node to the right of our node i.e., inorder successor
-            BTNode<T>* minToRight = findMin(n->get_right());
-
-            // Replace current node's data with data of our min value
-            n->set_data(minToRight->get_data());
-
-            // Rebalance tree
-            n->set_right(helpRemove(n->get_right(), n->get_data()));
-        }
-
-        // If it enters this block then its either a leaf node or a node with 1 child
-        else
-        {
-            susp = n;
-
-            // Check right - if right is null then our node has a left child
-            if(n->get_right() == NULL)
-            {
-                n = n->get_left();
-            }
-            // If above is false then we have a node that has a right child
-            else if(n->get_left() == NULL)
-            {
-                n = n->get_right();
-            }
-            // If none is true then it is a leaf node; we can just delete it
-            delete susp;
-            size--;
-        }
-    }
-
-    // Check n - if n is null return n
-    if(!n)
-    {
-        return n;
-    }
-    return n;
-}
-
 template <typename T>
 BTNode<T>* BSTree<T>::findMin(BTNode<T> *n) const
 {
-    // Just keep going left since we know that our tree will have its min value at the left most leaf from our
-    // starting node
+    // Just keep going left since we know that our tree will have its min value at the left most leaf from our starting node
     BTNode<T>* curr = n;
-    while(curr && curr->get_left() != NULL)
+    while((curr != NULL) && (curr->get_left() != NULL))
     {
         curr = curr->get_left();
     }
@@ -257,3 +268,28 @@ BTNode<T>* BSTree<T>::find(BTNode<T>* n, T &target) const
     // If we don't find anything it will return NULL - this means that the target does not exist
 }
 
+template <typename T>
+std::ostream& BSTree<T>::print(std::ostream& out)
+{
+    return helpPrint(out, root);
+}
+
+
+// Use an ostream to print our tree inorderly
+template <typename T>
+std::ostream& BSTree<T>::helpPrint(std::ostream &out, BTNode<T>* n)
+{
+    // If node is not null get data
+    if (n!=NULL)
+    {
+        helpPrint(out, n->get_left());
+        out << "(" << n->get_data().get_name() << ", " << n->get_data().get_population() << ") ";
+        helpPrint(out, n->get_right());
+    }
+    return out;
+}
+
+std::ostream& operator <<(std::ostream& out, BSTree<Cities>& obj)
+{
+  return obj.print(out);
+}

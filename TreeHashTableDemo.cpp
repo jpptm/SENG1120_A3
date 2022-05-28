@@ -62,6 +62,7 @@ int main()
 	
 	for (int j=0; j<10000; j++)
 	{
+        //std::cout << "test" << endl;
 		for (int i=0; i<31; i++)
 		{ // removes the 31 elements in the list. The first one is not present.
 			city.set_name(vectorNames[i]); city.set_population(vectorPop[i]);
@@ -73,9 +74,9 @@ int main()
 			city.set_name(vectorNames[i]); city.set_population(vectorPop[i]);
 			treeValues.add(city);
 		}
-	} 
+	}
+
 	cout << endl << endl;
-	
 	cout << "Final tree  : " << treeValues << endl << endl; // prints the contents of the tree.
 	cout << "Time elapsed: " << (clock() - t)/1000.0 << " seconds" << endl; // prints elapsed time.
 	cout << "Time per ins/del operation: " << 1000.0*(double)(clock() - t)/(double)(10000*31) << " milliseconds." << endl;

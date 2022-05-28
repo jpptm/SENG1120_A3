@@ -3,4 +3,4 @@ project(HashPlusTree)
 
 set(CMAKE_CXX_STANDARD 98)
 
-add_executable(HashPlusTree main.cpp BTNode.h)
+add_executable(HashPlusTree TreeHashTableDemo.cpp BTNode.h Cities.cpp BSTree.h)
