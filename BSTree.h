@@ -1,10 +1,10 @@
-// Initialise macroguard
-#ifndef HASHPLUSTREE_BSTREE_H
-#define HASHPLUSTREE_BSTREE_H
-
 // Author: Johanne Montano
 // Course: SENG1120
 // Student Number: c3336019
+
+// Initialise macroguard
+#ifndef HASHPLUSTREE_BSTREE_H
+#define HASHPLUSTREE_BSTREE_H
 
 #include "BTNode.h"
 #include <iostream>
