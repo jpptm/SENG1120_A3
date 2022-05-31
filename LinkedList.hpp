@@ -1,9 +1,10 @@
-// Implementation for LinkedList.h is here
-#include "LinkedList.h"
-
 // Author: Johanne Montano
 // Course: SENG1120
 // Student Number: c3336019
+// This script will contain the implementation for the template class LinkedList
+
+// Implementation for LinkedList.h is here
+#include "LinkedList.h"
 
 // LinkedList constructor - initialise all pointers to null
 template <typename T>
@@ -14,6 +15,7 @@ LinkedList<T>::LinkedList()
     tail = NULL;
     list_length = 0;
 }
+
 
 // LinkedList destructor - destroy all nodes within LL
 template <typename T>
@@ -33,6 +35,7 @@ LinkedList<T>::~LinkedList()
         }
     }
 }
+
 
 // Add new node as new head of LL
 template <typename T>
@@ -62,6 +65,7 @@ void LinkedList<T>::add_to_head(const T &node_data)
     // Increment list length
     list_length++;
 }
+
 
 // Add new node to the right of the current node - only use if list_length > 2 and current = head
 template <typename T>
@@ -97,6 +101,8 @@ void LinkedList<T>::add_to_current(const T &node_data)
     list_length++;
 }
 
+
+// Add new node to the tail of the linked list
 template <typename T>
 void LinkedList<T>::add_to_tail(const T &node_data)
 {
@@ -127,6 +133,7 @@ void LinkedList<T>::add_to_tail(const T &node_data)
     list_length++;
 }
 
+
 // We make sure that any functions that shouldn't alter the state of the class won't
 // Get head node of LL
 template <typename T>
@@ -135,6 +142,7 @@ T &LinkedList<T>::get_from_head() const
     return head->get_data();
 }
 
+
 // Get current node of LL
 template <typename T>
 T &LinkedList<T>::get_from_current() const
@@ -142,12 +150,14 @@ T &LinkedList<T>::get_from_current() const
     return current->get_data();
 }
 
+
 // Get tail node of LL
 template <typename T>
 T &LinkedList<T>::get_from_tail() const
 {
     return tail->get_data();
 }
+
 
 // Remove head node
 template <typename T>
@@ -192,6 +202,7 @@ T LinkedList<T>::remove_from_head()
         return payload;
     }
 }
+
 
 // Remove current node - must only use this function if LL has length > 2 - use only if absolutely needed
 template <typename T>
@@ -252,6 +263,7 @@ T LinkedList<T>::remove_from_current()
     return payload;
 }
 
+
 // Remove tail node
 template <typename T>
 T LinkedList<T>::remove_from_tail()
@@ -293,6 +305,7 @@ T LinkedList<T>::remove_from_tail()
     }
 }
 
+
 // Set current back to head
 template <typename T>
 void LinkedList<T>::start()
@@ -300,12 +313,14 @@ void LinkedList<T>::start()
     current = head;
 }
 
+
 // Set current to tail
 template <typename T>
 void LinkedList<T>::end()
 {
     current = tail;
 }
+
 
 // Move current one node forward
 template <typename T>
@@ -317,12 +332,14 @@ void LinkedList<T>::forward()
     }
 }
 
+
 // Move current one node back
 template <typename T>
 void LinkedList<T>::back()
 {
     current = current->get_previous();
 }
+
 
 // Get list's size by returning list_length
 template <typename T>

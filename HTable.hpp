@@ -11,16 +11,12 @@
 
 // Define empty constructor - linked list is already initialised so this is all good
 template <typename T>
-HTable<T>::HTable()
-{
-}
+HTable<T>::HTable() {}
 
 
 // Empty destructor - let the LinkedList's destructor do the clean-up
 template <typename T>
-HTable<T>::~HTable()
-{
-}
+HTable<T>::~HTable() {}
 
 
 // Hash function to derive position of the item within the table - given in the spec, I just had to copy and paste it

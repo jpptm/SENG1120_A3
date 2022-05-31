@@ -1,7 +1,7 @@
 // Author: Johanne Montano
 // Course: SENG1120
 // Student Number: c3336019
-// This script contains the declaration for members and non-members of the BSTree class
+// This script contains the declarations for members and non-members of the BSTree class
 
 
 // Initialise macro guard

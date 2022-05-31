@@ -1,10 +1,13 @@
 // Author: Johanne Montano
 // Course: SENG1120
 // Student Number: c3336019
+// This script will contain the declarations for the template class LinkedList
+// LinkedList will be holding nodes accessed by pointers
 
-// Macroguard
+// Initialise macro guard
 #ifndef LINKED_LIST_H
 #define LINKED_LIST_H
+
 #include "Node.h"
 
 // Linked list class to contain all nodes with needed data

@@ -1,11 +1,10 @@
-// Implementation for Node.h is written here
-#include "Node.h"
-
 // Author: Johanne Montano
 // Course: SENG1120
 // Student Number: c3336019
-
 // This class will be used as data holders for a linked list
+// Implementation for Node.h is written here
+
+#include "Node.h"
 
 // Constructors
 template <typename T>
@@ -15,6 +14,7 @@ Node<T>::Node()
     previous = NULL;
 }
 
+
 // This one uses arguments just to make code later on a bit cleaner
 template <typename T>
 Node<T>::Node(Node *next_node, Node *previous_node, T node_data_)
@@ -23,6 +23,7 @@ Node<T>::Node(Node *next_node, Node *previous_node, T node_data_)
     previous = previous_node;
     data = node_data_;
 }
+
 
 // Empty destructor
 template <typename T>
@@ -65,3 +66,4 @@ T &Node<T>::get_data()
 {
     return data;
 }
+

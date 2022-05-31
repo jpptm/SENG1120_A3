@@ -1,8 +1,10 @@
 // Author: Johanne Montano
 // Course: SENG1120
 // Student Number: c3336019
+// This script will contain the declarations for the template class Node
+// This will be mainly used for the LinkedList class as data containers
 
-// Macroguard
+// Initialise macro guard
 #ifndef NODE_H
 #define NODE_H
 

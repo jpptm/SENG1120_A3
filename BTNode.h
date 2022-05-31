@@ -1,14 +1,12 @@
-//
-// Created by User on 16/05/2022.
-//
-
-// Initialise macroguard
-#ifndef HASHPLUSTREE_BTNODE_H
-#define HASHPLUSTREE_BTNODE_H
-
 // Author: Johanne Montano
 // Course: SENG1120
 // Student Number: c3336019
+// This script will contain the declarations for the template class BTNode
+// BTNode will serve as a data container to be used by a binary search tree
+
+// Initialise macro guard
+#ifndef BTNODE_H
+#define BTNODE_H
 
 #include <cstdlib>
 
@@ -45,4 +43,4 @@ private:
 // Include to let compiler know implementation is in BTNode.hpp
 #include "BTNode.hpp"
 
-#endif //HASHPLUSTREE_BTNODE_H
+#endif // BTNODE_H
