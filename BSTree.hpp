@@ -306,7 +306,8 @@ std::ostream& BSTree<T>::helpPrint(std::ostream &out, BTNode<T>* n) const
 
 
 // Operator overload for << to  show the contents of the tree inorderly
-std::ostream& operator <<(std::ostream& out, const BSTree<Cities>& obj)
+template<typename T>
+std::ostream& operator <<(std::ostream& out, const BSTree<T>& obj)
 {
   return obj.print(out);
 }

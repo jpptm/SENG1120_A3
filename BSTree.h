@@ -10,9 +10,6 @@
 
 #include "BTNode.h"
 
-// TEMPORARY
-#include "Cities.h"
-
 template <class T>
 class BSTree
 {
