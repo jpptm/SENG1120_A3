@@ -15,6 +15,15 @@ HTable<T>::HTable()
 template <typename T>
 HTable<T>::~HTable()
 {
+    for (int i = 0; i < 1000; i++)
+    {
+        for (int j = 0; j < container[i].size(); j++)
+        {
+            container[i].remove_from_current();
+            container[i].forward();
+        }
+        container[i].start();
+    }
 }
 
 
@@ -93,7 +102,21 @@ int HTable<T>::calculateTotalPop()
 template <typename T>
 int HTable<T>::calculatePopGreaterThan(const int target)
 {
-    return 0;
+    int targetPop = 0;
+
+    for (int i = 0; i < 1000; i++)
+    {
+        for (int j = 0; j < container[i].size(); j++)
+        {
+            if (container[i].get_from_current().get_population() > target)
+            {
+                targetPop += container[i].get_from_current().get_population();
+            }
+            container[i].forward();
+        }
+        container[i].start();
+    }
+    return targetPop;
 }
 
 
