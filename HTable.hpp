@@ -23,7 +23,7 @@ HTable<T>::~HTable()
 }
 
 
-// Hash function to derive position of the item within the table - given in the spec, I just had to copy paste it
+// Hash function to derive position of the item within the table - given in the spec, I just had to copy and paste it
 template <typename value_type>
 int HTable<value_type>::hashfun(const value_type &value)
 {

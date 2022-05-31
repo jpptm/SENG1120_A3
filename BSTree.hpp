@@ -36,7 +36,7 @@ void BSTree<T>::destroyRecursively(const BTNode<T> *n)
     destroyRecursively(n->get_left());
     destroyRecursively(n->get_right());
 
-    // Decrement size
+    // Delete data in node and decrement size
     delete n;
     size--;
 
@@ -219,13 +219,17 @@ int BSTree<T>::traverseGetIfBigger(BTNode<T> *n, const int target) const
     // If node is not null or population of the node is > target then add its population to ans while travelling the whole tree
     else
     {
+        // Initialise return value
         int ans = 0;
 
+        // Go to left recursively
         ans += traverseGetIfBigger(n->get_left(), target);
+        // If current node's value is greater than target increment its value to ans
         if (n->get_data().get_population() > target)
         {
             ans += n->get_data().get_population();
         }
+        // Go to right recursively
         ans += traverseGetIfBigger(n->get_right(), target);
 
         return ans;
@@ -294,7 +298,7 @@ template <typename T>
 std::ostream& BSTree<T>::helpPrint(std::ostream &out, BTNode<T>* n) const
 {
     // If node is not null get data and process it
-    if (n!=NULL)
+    if (n != NULL)
     {
         helpPrint(out, n->get_left());
         out << "(" << n->get_data().get_name() << ", " << n->get_data().get_population() << ") ";

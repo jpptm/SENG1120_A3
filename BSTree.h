@@ -66,6 +66,7 @@ private:
     int traverseGetPop(BTNode<T>* n) const;
     int traverseGetIfBigger(BTNode<T>* n, int target) const;
 
+    // Helper method for printing tree contents
     std::ostream& helpPrint(std::ostream& out, BTNode<T>* n) const;
 };
 
