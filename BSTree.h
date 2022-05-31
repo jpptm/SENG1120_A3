@@ -9,6 +9,7 @@
 #define BSTREE_H
 
 #include "BTNode.h"
+#include <ostream>
 
 template <class T>
 class BSTree
