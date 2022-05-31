@@ -4,10 +4,10 @@
 // This script will contain the implementation for the template class HTable
 
 #include "HTable.h"
+#include <string>
 
 // Declare TABLE_SIZE to be const 1000 as per the assignment's requirements
 #define TABLE_SIZE 1000
-
 
 // Define empty constructor - linked list is already initialised so this is all good
 template <typename T>
@@ -16,36 +16,23 @@ HTable<T>::HTable()
 }
 
 
-// Traverse every position within the array and inspect every linked list to make sure we delete all
-// dynamically allocated nodes to avoid segfaults
+// Empty destructor - let the LinkedList's destructor do the clean-up
 template <typename T>
 HTable<T>::~HTable()
 {
-    // Go through the whole array using a double for loop
-    for (int i = 0; i < TABLE_SIZE; i++)
-    {
-        // Get the size of the container at iteration i and iterate through it
-        for (int j = 0; j < container[i].size(); j++)
-        {
-            // Remove the current node until we hit null
-            container[i].remove_from_current();
-            container[i].forward();
-        }
-        // Make sure to reset current pointer back to the beginning of our linked list
-        container[i].start();
-    }
 }
 
 
 // Hash function to derive position of the item within the table - given in the spec, I just had to copy paste it
 template <typename value_type>
-int HTable<value_type>::hashfun(const value_type& value) {
+int HTable<value_type>::hashfun(const value_type &value)
+{
     int position = 0;
-    string temp = value.get_name();
+    std::string temp = value.get_name();
 
-    for (int i=0; i<(int)temp.length(); i++)
+    for (int i = 0; i < (int)temp.length(); i++)
     {
-        position += (i+1) * (i+1) * temp.at(i);
+        position += (i + 1) * (i + 1) * temp.at(i);
     }
     return position % TABLE_SIZE;
 }
@@ -53,7 +40,7 @@ int HTable<value_type>::hashfun(const value_type& value) {
 
 // Add item to the hash table
 template <typename T>
-void HTable<T>::add(const T& item)
+void HTable<T>::add(const T &item)
 {
     // Get the corresponding key for the argument then add to the tail of the LinkedList at container[key]
     const int key = hashfun(item);
@@ -63,7 +50,7 @@ void HTable<T>::add(const T& item)
 
 // Remove item from hash table
 template <typename T>
-void HTable<T>::remove(const T& item)
+void HTable<T>::remove(const T &item)
 {
     // Get location of target to be removed
     const int key = hashfun(item);
@@ -99,7 +86,7 @@ int HTable<T>::calculateTotalPop()
     int totalPop = 0;
 
     // Run through the whole table
-    for (int i = 0 ;i < TABLE_SIZE; i++)
+    for (int i = 0; i < TABLE_SIZE; i++)
     {
         // Get all the data within the list for the current iteration
         for (int j = 0; j < container[i].size(); j++)
@@ -145,13 +132,13 @@ int HTable<T>::calculatePopGreaterThan(const int target)
 
 // Helper method to print the contents of the tree
 template <typename T>
-std::ostream& HTable<T>::print(std::ostream& out)
+std::ostream &HTable<T>::print(std::ostream &out)
 {
     // Traverse the whole table
     for (int i = 0; i < TABLE_SIZE; i++)
     {
         // Traverse the whole container
-        for(int j = 0; j < container[i].size(); j++)
+        for (int j = 0; j < container[i].size(); j++)
         {
             // Add contents to the ostream reference in the format of (city_name, city_population)
             out << "(" << container[i].get_from_current().get_name() << ", " << container[i].get_from_current().get_population() << ") ";
@@ -167,7 +154,7 @@ std::ostream& HTable<T>::print(std::ostream& out)
 
 // Operator overload for << to print the contents of the table
 template <typename T>
-std::ostream& operator <<(std::ostream& out, HTable<T>& table)
+std::ostream &operator<<(std::ostream &out, HTable<T> &table)
 {
     return table.print(out);
 }

@@ -19,14 +19,18 @@ LinkedList<T>::LinkedList()
 template <typename T>
 LinkedList<T>::~LinkedList()
 {
-    // If our LinkedList is not empty go through every single node and delete it
-    current = head;
-    Node<T> *temp = current;
-    while (current != NULL)
+    // If our list is not empty
+    if(list_length != 0)
     {
-        temp = current->get_next();
-        delete current;
-        current = temp;
+        // Make sure to set current to the head pointer
+        current = head;
+        // While current is not null free the memory and set current to its next value
+        while(current != NULL)
+        {
+            Node<T>* next = current -> get_next();
+            delete current;
+            current = next;
+        }
     }
 }
 
