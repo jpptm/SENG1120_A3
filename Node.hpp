@@ -6,6 +6,7 @@
 
 #include "Node.h"
 
+
 // Constructors
 template <typename T>
 Node<T>::Node()
@@ -29,6 +30,7 @@ Node<T>::Node(Node *next_node, Node *previous_node, T node_data_)
 template <typename T>
 Node<T>::~Node() {}
 
+
 // Setters for next, previous and data entries
 template <typename T>
 void Node<T>::set_next(Node *next_)
@@ -36,17 +38,20 @@ void Node<T>::set_next(Node *next_)
     next = next_;
 }
 
+
 template <typename T>
 void Node<T>::set_previous(Node *previous_)
 {
     previous = previous_;
 }
 
+
 template <typename T>
 void Node<T>::set_data(const T &node_data_)
 {
     data = node_data_;
 }
+
 
 // Getters - use const when we can and non const when we must alter the state of the object
 template <typename T>
@@ -55,15 +60,16 @@ Node<T> *Node<T>::get_next() const
     return next;
 }
 
+
 template <typename T>
 Node<T> *Node<T>::get_previous() const
 {
     return previous;
 }
 
+
 template <typename T>
 T &Node<T>::get_data()
 {
     return data;
 }
-
